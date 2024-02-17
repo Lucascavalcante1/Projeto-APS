@@ -1,2 +1,2 @@
 # Projeto-APS
-Projeto para disciplina analise e projeto de sistemas 
+Projeto para a disciplina de Análise e Projeto de Sistemas.
