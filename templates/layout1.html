@@ -21,24 +21,33 @@
         <span class="fs-4">QuickPoll</span>
       </a>
       <ul class="nav nav-pills">    
-    {% if user.is_authenticated %}
         <li class="nav-item">
+            <a href="{% url 'polls_list' %}" class="nav-link px-2 link-dark">Enquetes
+            </a>
+        </li>
+        {% if user.is_authenticated %}
+            <li class="nav-item"> {{ user.username }}</li>
+            <li class="nav-item">
+                <a href="{% url 'account_edit' pk=user.pk %}" class="nav-link px-2 link-dark">Minha Conta</a>
+            </li>
+            <li class="nav-item">
             <form action="{% url 'logout' %}" method="post" class="nav-link px-2 link-dark">
                 {% csrf_token %}
                 <button type="submit" class="link-button">Sair</button>
             </form>
-        </li>
-    {% else %}
-        <li class="nav-item">
-            <a href="{% url 'signup' %}" class="nav-link px-2 link-dark">Cadastrar</a>
-        </li>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a href="{% url 'signup' %}" class="nav-link px-2 link-dark">Cadastrar</a>
+            </li>
     
+            <li class="nav-item">
+                <a href="{% url 'login' %}" class="nav-link px-2 link-dark">Acessar</a>
+            </li>
+        {% endif %}    
         <li class="nav-item">
-            <a href="{% url 'login' %}" class="nav-link px-2 link-dark">Acessar</a>
-        </li>
-    {% endif %}    
-        <li class="nav-item">
-            <a href="{% url 'ola' %}" class="nav-link px-2 link-dark">Sobre</a>
+            <a href="{% url 'about_page' %}" class="nav-link px-2 link-dark">Sobre
+            </a>
         </li>
       </ul>
     </header>

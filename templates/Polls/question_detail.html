@@ -1,0 +1,21 @@
+{% extends 'layout1.html' %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Pergunta</h5>
+        </div>
+        <div class="card-body">
+            <p>
+                {{ question.question_text }}
+                <a href="{% url 'question_edit' pk=question.id %}" class="link-secondary">
+                    Editar
+                </a> &nbsp;
+                <a href="{% url 'question_delete' pk=question.id %}" class="link-secondary">
+                    Excluir
+                </a>
+            </p>
+            <p>Data de Publicação: {{ question.pub_date }}</p>
+        </div>
+    </div>  
+{% endblock %}

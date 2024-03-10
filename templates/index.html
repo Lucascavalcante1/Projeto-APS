@@ -1,9 +1,12 @@
-{% extends 'layout1.html' %} {# herda tudo que já tem em _layout1.html #}
+{% extends 'layout1.html' %} 
 
 {% block head_title %}
     Minhas Enquetes
 {% endblock %}
 
-{% block content %} {# substitui  o bloco content em _layout1.html #}
-    <h1>{{ titulo }}</h1> {# variável a ser substituída #}
-{% endblock %} {# fecha o bloco content #}
+{% block content %} 
+    <a href="{% url 'poll_add' %}" class="btn btn-lg btn-primary font-weight-bold mb-5">
+        + Pergunta
+    </a>
+    <h1>{{ titulo }}</h1> 
+{% endblock %} 

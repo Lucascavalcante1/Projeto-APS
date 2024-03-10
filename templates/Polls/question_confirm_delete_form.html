@@ -1,0 +1,18 @@
+{% extends 'layout1.html' %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Excluindo a pergunta Nº {{ object.id }}</h5>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %} 
+                <h6>Tem certeza que deseja excluir a pergunta abaixo?</h6>
+                <p>{{ object.question_text }}</p>
+                <button type="submit" class="btn btn-danger">Confirmar</button>
+                <a href="{% url 'index' %}" class="link-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>  
+{% endblock %}
