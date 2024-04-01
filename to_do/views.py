@@ -19,14 +19,11 @@ def index(request):
     context = {'all_questions': questions, 'titulo': 'Ultimas Enquetes '}
     return render(request, 'Polls/questions.html', context)
 
-
-
 @login_required
 def ola(request):
     questions = Question.objects.all()
     context = {'all_questions': questions }
     return render(request, 'Polls/questions.html', context) 
-
 
 class QuestionCreateView(LoginRequiredMixin, CreateView):
     model = Question
@@ -45,22 +42,6 @@ class QuestionCreateView(LoginRequiredMixin, CreateView):
 
         return context
 
-@login_required
-def question_create(request):
-    context = {}
-    form = QuestionForm(request.POST or None, request.FILES or None)
-    context['form'] = form
-    context['form_title'] = 'Criando Uma Pergunta'
-
-    if request.method == "POST":
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Pergunta Criada Com Sucesso.')
-            return redirect("index")
-    
-    return render(request, 'Polls/question_form.html', context)
-    
-
 class QuestionUpdateView(LoginRequiredMixin, UpdateView):
     model = Question
     template_name = 'polls/question_form.html'
@@ -78,23 +59,6 @@ class QuestionUpdateView(LoginRequiredMixin, UpdateView):
 
         return context
 
-@login_required
-def question_update(request, question_id):
-    context = {}
-    
-    question = get_object_or_404(Question, id=question_id)
-    form = QuestionForm(request.POST or None, instance=question)
-    context['form'] = form
-    context['form_title'] = 'Editando a Pergunta'
-    
-    if request.method == "POST":
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Pergunta Criada Com Sucesso!')
-            return redirect('index')
-
-    return render(request, 'Polls/question_form.html', context)
-
 class QuestionDeleteView(LoginRequiredMixin, DeleteView):
     model = Question
     template_name = 'Polls/question_confirm_delete_form.html'
@@ -104,20 +68,6 @@ class QuestionDeleteView(LoginRequiredMixin, DeleteView):
     def form_valid(self, form):
         messages.success(self.request, self.success_message)
         return super(QuestionDeleteView, self).form_valid(form)
-
-@login_required    
-def question_delete(request, question_id):
-    context = {}
-
-    question = get_object_or_404(Question, id=question_id)
-    context['object'] = question
-
-    if request.method == "POST":
-        question.delete()
-        messages.success(request, 'A pergunta foi excluida com sucesso')
-        return redirect('index')
-
-    return render(request, 'Polls/question_confirm_delete_form.html', context) 
 
 class QuestionDetailView(DetailView):
     model = Question
