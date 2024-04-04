@@ -1,4 +1,9 @@
-from django.shortcuts import render, get_object_or_404, redirect
+"""
+Importa os módulos e classes necessários
+para trabalhar com visualizações, modelos, formulários e mensagens.
+"""
+# from django.shortcuts get_object_or_404, redirect
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
@@ -19,8 +24,6 @@ def index(request):
 
 
 @login_required
-
-
 def ola(request):
     """Pagina Home"""
     questions = Question.objects.all()
@@ -29,7 +32,7 @@ def ola(request):
 
 
 class QuestionCreateView(LoginRequiredMixin, CreateView):
-    """ Criar """
+    """ Create"""
     model = Question
     template_name = 'Polls/question_form.html'
     fields = ('question_text', 'pub_date')
@@ -38,7 +41,7 @@ class QuestionCreateView(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         messages.success(self.request, self.success_message)
-        return super(QuestionCreateView, self).form_valid(form)   
+        return super(QuestionCreateView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super(QuestionCreateView, self).get_context_data(**kwargs)
@@ -67,7 +70,7 @@ class QuestionUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class QuestionDeleteView(LoginRequiredMixin, DeleteView):
-    """ Deletar """
+    """ Delete """
     model = Question
     template_name = 'Polls/question_confirm_delete_form.html'
     success_url = reverse_lazy('index')
@@ -79,7 +82,7 @@ class QuestionDeleteView(LoginRequiredMixin, DeleteView):
 
 
 class QuestionDetailView(DetailView):
-    """ Ver """
+    """ View """
     model = Question
     template_name = 'Polls/question_detail.html'
     context_object_name = 'question'

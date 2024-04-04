@@ -1,5 +1,4 @@
-"""""
-"""""
+"""Configuração de roteamento de URLs para o aplicativo principal."""
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.views import LogoutView
@@ -13,7 +12,7 @@ urlpatterns = [
     path('', include('to_do.urls')),
     path('', include('accounts.urls')),
     path('accounts/ ', include('django.contrib.auth.urls')),
-    path('login/', LoginView.as_view(), name='login'),   
+    path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(next_page='index'), name='logout'),
 ]
 

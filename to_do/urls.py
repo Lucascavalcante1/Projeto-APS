@@ -1,6 +1,7 @@
 """ Caminho das URLS """
 from django.urls import path
-from to_do.views import index, ola, QuestionCreateView, QuestionUpdateView, QuestionDeleteView
+from to_do.views import index, ola, QuestionCreateView, QuestionUpdateView
+from to_do.views import QuestionDeleteView
 from to_do import views
 
 urlpatterns = [

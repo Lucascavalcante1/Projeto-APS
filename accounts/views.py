@@ -1,4 +1,7 @@
 """
+Importa os módulos necessários do Django para criar visualizações genéricas,
+lidar com URLs, fazer hash de senhas, exibir mensagens, lidar com autenticação,
+e obter o modelo de usuário atual.
 """
 from django.views.generic import CreateView, UpdateView
 from django.urls import reverse_lazy
@@ -13,9 +16,9 @@ User = get_user_model()
 
 class AccountCreatView(CreateView):
     """""
-    Esta view renderiza um formulário de registro de usuário e permite ao usuário
-    criar uma nova conta. Após a criação bem-sucedida da conta, redireciona para a
-    página de login.
+    Esta view renderiza um formulário de registro de usuário e permite ao
+    usuário  criar uma nova conta.
+    Após a criação bem-sucedida da conta, redireciona para a página de login.
     """""
     model = User
     template_name = 'registration/signup_form.html'
@@ -33,8 +36,9 @@ class AccountCreatView(CreateView):
 
 class AccountUpdateView(LoginRequiredMixin, UpdateView):
     """""
-    Este método é chamado quando o formulário de registro é válido. Ele hash a senha
-    do usuário, salva o novo usuário e exibe uma mensagem de sucesso.
+    Este método é chamado quando o formulário de registro é válido.
+    Ele hash a senha do usuário, salva o novo usuário e
+    exibe uma mensagem de sucesso.
     """""
 
     model = User
