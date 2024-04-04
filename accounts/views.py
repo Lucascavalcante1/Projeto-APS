@@ -1,21 +1,25 @@
-from django.db.models.query import QuerySet
-from django.shortcuts import render
-from django.views.generic.edit  import CreateView, UpdateView
+"""
+"""
+from django.views.generic import CreateView, UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.hashers import make_password
-from django.contrib  import messages
+from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 from django.contrib.auth import get_user_model
+from accounts.forms import AccountSignupForm
 User = get_user_model()
 
-from accounts.forms import AccountSignupForm
 
 class AccountCreatView(CreateView):
+    """""
+    Esta view renderiza um formulário de registro de usuário e permite ao usuário
+    criar uma nova conta. Após a criação bem-sucedida da conta, redireciona para a
+    página de login.
+    """""
     model = User
     template_name = 'registration/signup_form.html'
-    form_class  = AccountSignupForm
+    form_class = AccountSignupForm
     success_url = reverse_lazy('login')
     message = 'Usuário criado com sucesso.'
 
@@ -25,11 +29,16 @@ class AccountCreatView(CreateView):
         messages.success(self.request, self.message)
 
         return super(AccountCreatView, self).form_valid(form)
-    
+
 
 class AccountUpdateView(LoginRequiredMixin, UpdateView):
+    """""
+    Este método é chamado quando o formulário de registro é válido. Ele hash a senha
+    do usuário, salva o novo usuário e exibe uma mensagem de sucesso.
+    """""
+
     model = User
-    template_name  = 'accounts/user_form.html'
+    template_name = 'accounts/user_form.html'
     fields = ('first_name', 'email', 'imagem', )
     success_url = reverse_lazy('index')
     success_message = 'Perfil Atualizado Com Sucesso'
@@ -40,8 +49,7 @@ class AccountUpdateView(LoginRequiredMixin, UpdateView):
         if user is None or not user.is_authenticated or user_id != user_id:
             return User.objects.none()
         return User.objects.filter(id=user.id)
-    
+
     def form_valid(self, form):
         messages.success(self.request, self.success_message)
         return super().form_valid(form)
-    
