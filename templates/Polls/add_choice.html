@@ -1,0 +1,5 @@
+<form action="{% url 'add_choice' question.id %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="choice_text" placeholder="Digite a nova escolha">
+    <button type="submit">Adicionar Escolha</button>
+</form>
